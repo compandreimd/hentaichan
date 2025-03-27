@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -17,12 +19,19 @@
  * under the License.
  */
 
-// Wait for the deviceready event before using any of Cordova's device APIs.
-// See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
-document.addEventListener('deviceready', onDeviceReady, false);
+const path = require('path');
+const check_reqs = require('./check_reqs');
 
-function onDeviceReady() {
-    // Cordova is now initialized. Have fun!
+/**
+ * run
+ *   Creates a zip file int platform/build folder
+ */
+module.exports.run = function () {
+    return check_reqs.run();
+};
 
-    console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-}
+module.exports.help = function () {
+    console.log('Usage: cordova build browser');
+    const wwwPath = path.resolve(path.join(__dirname, '../../www'));
+    console.log("Build will create the packaged app in '" + wwwPath + "'.");
+};
